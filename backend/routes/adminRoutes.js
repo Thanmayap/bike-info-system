@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('../controllers/adminController');
+const { authRequired, adminOnly } = require('../middleware/auth');
+r.use(authRequired, adminOnly);
+r.get('/stats', c.stats);
+r.get('/users', c.users);
+r.delete('/users/:id', c.deleteUser);
+r.get('/categories', c.categories);
+r.post('/categories', c.createCategory);
+module.exports = r;

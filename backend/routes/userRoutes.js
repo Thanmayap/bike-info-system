@@ -1,0 +1,12 @@
+const r = require('express').Router();
+const c = require('../controllers/userController');
+const { authRequired } = require('../middleware/auth');
+r.use(authRequired);
+r.get('/me', c.me);
+r.put('/me', c.updateMe);
+r.get('/wishlist', c.wishlist);
+r.post('/wishlist/:id', c.toggleWishlist);
+r.get('/recent', c.recent);
+r.post('/recent/:id', c.trackRecent);
+r.get('/stats', c.dashboardStats);
+module.exports = r;

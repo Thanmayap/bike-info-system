@@ -1,0 +1,11 @@
+const r = require('express').Router();
+const c = require('../controllers/bikeController');
+const { authRequired, adminOnly } = require('../middleware/auth');
+const upload = require('../middleware/upload');
+r.get('/', c.list);
+r.post('/compare', (req, _res, next) => next(), c.compare);
+r.get('/:id', c.get);
+r.post('/', authRequired, adminOnly, upload.single('image'), c.create);
+r.put('/:id', authRequired, adminOnly, upload.single('image'), c.update);
+r.delete('/:id', authRequired, adminOnly, c.remove);
+module.exports = r;

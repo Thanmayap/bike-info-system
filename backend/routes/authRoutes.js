@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('../controllers/authController');
+const { authRequired } = require('../middleware/auth');
+r.post('/register', c.register);
+r.post('/login', c.login);
+r.post('/forgot-password', c.forgotPassword);
+r.post('/verify-otp', c.verifyOtp);
+r.post('/reset-password', c.resetPassword);
+r.post('/change-password', authRequired, c.changePassword);
+module.exports = r;

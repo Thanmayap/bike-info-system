@@ -1,11 +1,11 @@
 const r = require('express').Router();
-const c = require('../controllers/bikeController');
 const { authRequired, adminOnly } = require('../middleware/auth');
-const upload = require('../middleware/upload');
-r.get('/', c.list);
-r.post('/compare', (req, _res, next) => next(), c.compare);
-r.get('/:id', c.get);
-r.post('/', authRequired, adminOnly, upload.single('image'), c.create);
-r.put('/:id', authRequired, adminOnly, upload.single('image'), c.update);
-r.delete('/:id', authRequired, adminOnly, c.remove);
+
+r.get('/', (req, res, next) => require('../controllers/bikeController').list(req, res, next));
+r.post('/compare', (req, res, next) => require('../controllers/bikeController').compare(req, res, next));
+r.get('/:id', (req, res, next) => require('../controllers/bikeController').get(req, res, next));
+r.post('/', authRequired, adminOnly, (req, res, next) => require('../middleware/upload').single('image')(req, res, next), (req, res, next) => require('../controllers/bikeController').create(req, res, next));
+r.put('/:id', authRequired, adminOnly, (req, res, next) => require('../middleware/upload').single('image')(req, res, next), (req, res, next) => require('../controllers/bikeController').update(req, res, next));
+r.delete('/:id', authRequired, adminOnly, (req, res, next) => require('../controllers/bikeController').remove(req, res, next));
+
 module.exports = r;

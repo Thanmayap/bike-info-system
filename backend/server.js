@@ -9,6 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
+const { initDb } = require('./utils/initDb');
 
 console.log('DIAGNOSTICS - TYPES:', {
   authRoutes: typeof authRoutes,
@@ -16,7 +17,8 @@ console.log('DIAGNOSTICS - TYPES:', {
   userRoutes: typeof userRoutes,
   reviewRoutes: typeof reviewRoutes,
   adminRoutes: typeof adminRoutes,
-  errorHandler: typeof errorHandler
+  errorHandler: typeof errorHandler,
+  initDb: typeof initDb
 });
 
 const app = express();
@@ -45,7 +47,6 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-const { initDb } = require('./utils/initDb');
 
 if (!process.env.VERCEL) {
   initDb().then(() => {

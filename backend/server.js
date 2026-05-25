@@ -9,15 +9,6 @@ const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
-console.log('DIAGNOSTICS - TYPES:', {
-  authRoutes: typeof authRoutes,
-  bikeRoutes: typeof bikeRoutes,
-  userRoutes: typeof userRoutes,
-  reviewRoutes: typeof reviewRoutes,
-  adminRoutes: typeof adminRoutes,
-  errorHandler: typeof errorHandler
-});
-
 const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));
@@ -55,10 +46,6 @@ if (!process.env.VERCEL) {
   });
 } else {
   const initDbModule = require('./utils/initDb');
-  console.log('DIAGNOSTICS - initDbModule:', typeof initDbModule, initDbModule ? Object.keys(initDbModule) : 'null');
-  if (initDbModule && initDbModule.default) {
-    console.log('DIAGNOSTICS - initDbModule.default:', typeof initDbModule.default, Object.keys(initDbModule.default));
-  }
   const initDbFn = initDbModule.initDb || (initDbModule.default && initDbModule.default.initDb) || (typeof initDbModule === 'function' ? initDbModule : null);
   if (typeof initDbFn === 'function') {
     initDbFn().catch(err => {

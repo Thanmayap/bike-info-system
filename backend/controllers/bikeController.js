@@ -1,8 +1,4 @@
 const pool = require('../config/db');
-console.log('DIAGNOSTICS - pool in bikeController:', typeof pool, pool ? Object.keys(pool) : 'null');
-if (pool && pool.default) {
-  console.log('DIAGNOSTICS - pool.default in bikeController:', typeof pool.default, Object.keys(pool.default));
-}
 
 exports.list = async (req, res, next) => {
   try {

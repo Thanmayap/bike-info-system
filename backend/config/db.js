@@ -7,12 +7,27 @@ let dbInstance;
 
 async function getDb() {
   if (!dbInstance) {
-    const dbPath = path.join(__dirname, '../../database/database.sqlite');
-    // Ensure the database directory exists
-    const dbDir = path.dirname(dbPath);
-    if (!fs.existsSync(dbDir)) {
-      fs.mkdirSync(dbDir, { recursive: true });
+    let dbPath = path.join(__dirname, '../../database/database.sqlite');
+    
+    if (process.env.VERCEL) {
+      const tempDbPath = path.join('/tmp', 'database.sqlite');
+      if (!fs.existsSync(tempDbPath)) {
+        try {
+          fs.copyFileSync(dbPath, tempDbPath);
+          console.log('Copied database.sqlite to /tmp for write access on Vercel');
+        } catch (err) {
+          console.error('Failed to copy database to /tmp:', err);
+        }
+      }
+      dbPath = tempDbPath;
+    } else {
+      // Ensure the database directory exists
+      const dbDir = path.dirname(dbPath);
+      if (!fs.existsSync(dbDir)) {
+        fs.mkdirSync(dbDir, { recursive: true });
+      }
     }
+
     dbInstance = await open({
       filename: dbPath,
       driver: sqlite3.Database

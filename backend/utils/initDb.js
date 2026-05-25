@@ -1,9 +1,9 @@
-const db = require('../config/db');
-const { updateBikeImages } = require('./updateBikeImages');
 const fs = require('fs');
 const path = require('path');
 
 async function initDb() {
+  const db = require('../config/db');
+  const { updateBikeImages } = require('./updateBikeImages');
   const sqliteDb = await db.getDbInstance();
 
   // Check if tables exist

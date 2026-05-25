@@ -1,4 +1,4 @@
-const db = require('../config/db');
+// db required dynamically
 
 const imageMap = {
   // Honda
@@ -166,6 +166,7 @@ const colorsMap = {
 };
 
 async function updateBikeImages() {
+  const db = require('../config/db');
   const sqliteDb = await db.getDbInstance();
 
   // Add colors column if not exists

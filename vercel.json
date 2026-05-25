@@ -1,13 +1,7 @@
 {
   "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/((?!_/backend).*)", "dest": "/index.html" }
   ],
   "experimentalServices": {
     "frontend": {

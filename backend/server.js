@@ -9,16 +9,13 @@ const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
-const { initDb } = require('./utils/initDb');
-
 console.log('DIAGNOSTICS - TYPES:', {
   authRoutes: typeof authRoutes,
   bikeRoutes: typeof bikeRoutes,
   userRoutes: typeof userRoutes,
   reviewRoutes: typeof reviewRoutes,
   adminRoutes: typeof adminRoutes,
-  errorHandler: typeof errorHandler,
-  initDb: typeof initDb
+  errorHandler: typeof errorHandler
 });
 
 const app = express();
@@ -49,13 +46,13 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 if (!process.env.VERCEL) {
-  initDb().then(() => {
+  require('./utils/initDb').initDb().then(() => {
     app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
   }).catch(err => {
     console.error("Failed to initialize DB:", err);
   });
 } else {
-  initDb().catch(err => {
+  require('./utils/initDb').initDb().catch(err => {
     console.error("Failed to initialize DB on Vercel:", err);
   });
 }

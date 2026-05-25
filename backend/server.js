@@ -10,6 +10,13 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
 
+console.log('DIAGNOSTICS - authRoutes:', typeof authRoutes, authRoutes);
+console.log('DIAGNOSTICS - bikeRoutes:', typeof bikeRoutes, bikeRoutes);
+console.log('DIAGNOSTICS - userRoutes:', typeof userRoutes, userRoutes);
+console.log('DIAGNOSTICS - reviewRoutes:', typeof reviewRoutes, reviewRoutes);
+console.log('DIAGNOSTICS - adminRoutes:', typeof adminRoutes, adminRoutes);
+console.log('DIAGNOSTICS - errorHandler:', typeof errorHandler, errorHandler);
+
 const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));

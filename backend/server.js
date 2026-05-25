@@ -38,8 +38,16 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 const { initDb } = require('./utils/initDb');
 
-initDb().then(() => {
-  app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
-}).catch(err => {
-  console.error("Failed to initialize DB:", err);
-});
+if (!process.env.VERCEL) {
+  initDb().then(() => {
+    app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
+  }).catch(err => {
+    console.error("Failed to initialize DB:", err);
+  });
+} else {
+  initDb().catch(err => {
+    console.error("Failed to initialize DB on Vercel:", err);
+  });
+}
+
+module.exports = app;

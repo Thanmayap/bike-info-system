@@ -61,7 +61,8 @@ const pool = {
     }
   },
   execute: async (sql, params) => pool.query(sql, params),
-  getDbInstance: getDb // exported in case we need direct access
+  getDbInstance: getDb
 };
 
+pool.default = pool;
 module.exports = pool;

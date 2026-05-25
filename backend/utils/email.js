@@ -20,4 +20,6 @@ async function sendOtpEmail(to, otp) {
   });
 }
 
-module.exports = { sendOtpEmail };
+const exportsObj = { sendOtpEmail };
+exportsObj.default = exportsObj;
+module.exports = exportsObj;

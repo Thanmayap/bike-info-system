@@ -17,4 +17,6 @@ function adminOnly(req, res, next) {
   next();
 }
 
-module.exports = { authRequired, adminOnly };
+const exportsObj = { authRequired, adminOnly };
+exportsObj.default = exportsObj;
+module.exports = exportsObj;

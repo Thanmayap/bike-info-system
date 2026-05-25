@@ -18,4 +18,5 @@ const upload = multer({
     /jpeg|jpg|png|webp/.test(file.mimetype) ? cb(null, true) : cb(new Error('Invalid image')),
 });
 
+upload.default = upload;
 module.exports = upload;

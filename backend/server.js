@@ -46,15 +46,27 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 if (!process.env.VERCEL) {
-  require('./utils/initDb').initDb().then(() => {
+  const initDbModule = require('./utils/initDb');
+  const initDbFn = initDbModule.initDb || (initDbModule.default && initDbModule.default.initDb) || (typeof initDbModule === 'function' ? initDbModule : null);
+  initDbFn().then(() => {
     app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
   }).catch(err => {
     console.error("Failed to initialize DB:", err);
   });
 } else {
-  require('./utils/initDb').initDb().catch(err => {
-    console.error("Failed to initialize DB on Vercel:", err);
-  });
+  const initDbModule = require('./utils/initDb');
+  console.log('DIAGNOSTICS - initDbModule:', typeof initDbModule, initDbModule ? Object.keys(initDbModule) : 'null');
+  if (initDbModule && initDbModule.default) {
+    console.log('DIAGNOSTICS - initDbModule.default:', typeof initDbModule.default, Object.keys(initDbModule.default));
+  }
+  const initDbFn = initDbModule.initDb || (initDbModule.default && initDbModule.default.initDb) || (typeof initDbModule === 'function' ? initDbModule : null);
+  if (typeof initDbFn === 'function') {
+    initDbFn().catch(err => {
+      console.error("Failed to initialize DB on Vercel:", err);
+    });
+  } else {
+    console.error("Failed to resolve initDb function! Resolved to:", typeof initDbFn);
+  }
 }
 
 module.exports = app;

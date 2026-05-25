@@ -1,21 +1,11 @@
-console.log('DIAG_AUTH_ROUTES - Start');
-const express = require('express');
-console.log('DIAG_AUTH_ROUTES - express:', typeof express);
-const r = express.Router();
-console.log('DIAG_AUTH_ROUTES - router before controller require:', typeof r);
-
-const c = require('../controllers/authController');
-console.log('DIAG_AUTH_ROUTES - authController:', typeof c, c ? Object.keys(c) : 'null');
-
+const r = require('express').Router();
 const { authRequired } = require('../middleware/auth');
-console.log('DIAG_AUTH_ROUTES - authRequired:', typeof authRequired);
 
-r.post('/register', c.register);
-r.post('/login', c.login);
-r.post('/forgot-password', c.forgotPassword);
-r.post('/verify-otp', c.verifyOtp);
-r.post('/reset-password', c.resetPassword);
-r.post('/change-password', authRequired, c.changePassword);
+r.post('/register', (req, res, next) => require('../controllers/authController').register(req, res, next));
+r.post('/login', (req, res, next) => require('../controllers/authController').login(req, res, next));
+r.post('/forgot-password', (req, res, next) => require('../controllers/authController').forgotPassword(req, res, next));
+r.post('/verify-otp', (req, res, next) => require('../controllers/authController').verifyOtp(req, res, next));
+r.post('/reset-password', (req, res, next) => require('../controllers/authController').resetPassword(req, res, next));
+r.post('/change-password', authRequired, (req, res, next) => require('../controllers/authController').changePassword(req, res, next));
 
-console.log('DIAG_AUTH_ROUTES - router after routes set:', typeof r);
 module.exports = r;

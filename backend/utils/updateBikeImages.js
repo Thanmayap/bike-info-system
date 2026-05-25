@@ -179,7 +179,7 @@ async function updateBikeImages() {
   for (const [key, url] of Object.entries(imageMap)) {
     const [brand, model] = key.split('|');
     const row = await sqliteDb.get('SELECT image FROM bikes WHERE brand = ? AND model = ?', [brand, model]);
-    if (row && (!row.image || row.image !== url)) {
+    if (row && (!row.image || row.image.startsWith('/uploads/') || row.image.includes('664x374'))) {
       const result = await sqliteDb.run(
         'UPDATE bikes SET image = ? WHERE brand = ? AND model = ?',
         [url, brand, model]

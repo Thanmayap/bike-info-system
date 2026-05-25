@@ -26,6 +26,15 @@ app.use('/api/admin', adminRoutes);
 
 app.use(errorHandler);
 
+// Serve frontend static files
+const distPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(distPath));
+
+// Catch-all to serve index.html for React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 const { initDb } = require('./utils/initDb');
 

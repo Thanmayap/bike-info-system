@@ -3,3 +3,5 @@ node_modules/
 tmp_tvs.json
 .DS_Store
 *.log
+
+.vercel

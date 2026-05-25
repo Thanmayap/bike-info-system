@@ -10,12 +10,14 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
 
-console.log('DIAGNOSTICS - authRoutes:', typeof authRoutes, authRoutes);
-console.log('DIAGNOSTICS - bikeRoutes:', typeof bikeRoutes, bikeRoutes);
-console.log('DIAGNOSTICS - userRoutes:', typeof userRoutes, userRoutes);
-console.log('DIAGNOSTICS - reviewRoutes:', typeof reviewRoutes, reviewRoutes);
-console.log('DIAGNOSTICS - adminRoutes:', typeof adminRoutes, adminRoutes);
-console.log('DIAGNOSTICS - errorHandler:', typeof errorHandler, errorHandler);
+console.log('DIAGNOSTICS - TYPES:', {
+  authRoutes: typeof authRoutes,
+  bikeRoutes: typeof bikeRoutes,
+  userRoutes: typeof userRoutes,
+  reviewRoutes: typeof reviewRoutes,
+  adminRoutes: typeof adminRoutes,
+  errorHandler: typeof errorHandler
+});
 
 const app = express();
 

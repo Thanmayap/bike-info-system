@@ -28,6 +28,14 @@ async function initDb() {
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       );
 
+      CREATE TABLE IF NOT EXISTS otp_verifications (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        identifier VARCHAR(150) NOT NULL UNIQUE,
+        otp_code VARCHAR(10) NOT NULL,
+        expires_at DATETIME NOT NULL,
+        purpose VARCHAR(20) NOT NULL
+      );
+
       CREATE TABLE bike_categories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name VARCHAR(80) NOT NULL UNIQUE,
@@ -185,6 +193,22 @@ async function initDb() {
 
     console.log('Database initialized successfully with seeded data.');
   } else {
+    // Migration: ensure otp_verifications table exists
+    try {
+      await sqliteDb.run(`
+        CREATE TABLE IF NOT EXISTS otp_verifications (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          identifier VARCHAR(150) NOT NULL UNIQUE,
+          otp_code VARCHAR(10) NOT NULL,
+          expires_at DATETIME NOT NULL,
+          purpose VARCHAR(20) NOT NULL
+        )
+      `);
+      console.log('Created/verified otp_verifications table.');
+    } catch (e) {
+      console.error('Failed to create otp_verifications table:', e);
+    }
+
     // Migration: ensure weight column exists (older DBs may not have it)
     try {
       await sqliteDb.run('ALTER TABLE bikes ADD COLUMN weight INTEGER');

@@ -20,6 +20,15 @@ CREATE TABLE users (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- 1.5. otp_verifications
+CREATE TABLE otp_verifications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  identifier VARCHAR(150) NOT NULL UNIQUE,
+  otp_code VARCHAR(10) NOT NULL,
+  expires_at DATETIME NOT NULL,
+  purpose VARCHAR(20) NOT NULL
+);
+
 -- 2. bike_categories
 CREATE TABLE bike_categories (
   id INT AUTO_INCREMENT PRIMARY KEY,

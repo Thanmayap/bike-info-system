@@ -20,6 +20,12 @@ export function AuthProvider({ children }) {
     setUser(data.user);
     return data.user;
   };
+  const loginWithOtp = async (identifier, otp) => {
+    const { data } = await api.post('/auth/login-otp', { identifier, otp });
+    localStorage.setItem('token', data.token);
+    setUser(data.user);
+    return data.user;
+  };
   const register = async (payload) => {
     const { data } = await api.post('/auth/register', payload);
     localStorage.setItem('token', data.token);
@@ -28,5 +34,5 @@ export function AuthProvider({ children }) {
   };
   const logout = () => { localStorage.removeItem('token'); setUser(null); };
 
-  return <AuthCtx.Provider value={{ user, setUser, login, register, logout }}>{children}</AuthCtx.Provider>;
+  return <AuthCtx.Provider value={{ user, setUser, login, loginWithOtp, register, logout }}>{children}</AuthCtx.Provider>;
 }

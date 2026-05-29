@@ -121,7 +121,10 @@ exports.sendOtp = async (req, res, next) => {
     );
 
     await sendOtp(identifier, otp, purpose);
-    res.json({ message: `OTP sent to ${isEmail ? 'email' : 'phone number'}` });
+    res.json({ 
+      message: `OTP sent to ${isEmail ? 'email' : 'phone number'}`,
+      devOtp: process.env.NODE_ENV !== 'production' ? otp : undefined
+    });
   } catch (e) { next(e); }
 };
 
@@ -189,7 +192,10 @@ exports.forgotPassword = async (req, res, next) => {
     );
 
     await sendOtp(searchVal, otp, 'reset');
-    res.json({ message: `OTP sent to ${isEmail ? 'email' : 'phone number'}` });
+    res.json({ 
+      message: `OTP sent to ${isEmail ? 'email' : 'phone number'}`,
+      devOtp: process.env.NODE_ENV !== 'production' ? otp : undefined
+    });
   } catch (e) { next(e); }
 };
 

@@ -34,13 +34,22 @@ export default function Login() {
 
   const handleSendOtp = async (e) => {
     if (e) e.preventDefault();
-    if (!otpIdentifier) return toast.error('Please enter your ' + (otpMethod === 'email' ? 'email' : 'phone number'));
+    let identifier = otpIdentifier;
+    if (!identifier) return toast.error('Please enter your ' + (otpMethod === 'email' ? 'email' : 'phone number'));
+    if (otpMethod === 'phone') {
+      if (identifier.length !== 10) return toast.error('Please enter a valid 10-digit Indian phone number');
+      identifier = '+91' + identifier;
+    }
     setLoading(true);
     try {
-      await api.post('/auth/send-otp', { identifier: otpIdentifier, purpose: 'login' });
+      const { data } = await api.post('/auth/send-otp', { identifier, purpose: 'login' });
       toast.success('OTP sent successfully!');
       setOtpStep(2);
       startTimer();
+      if (data.devOtp) {
+        toast(`[DEV MODE] Auto-filled OTP: ${data.devOtp}`, { icon: '🔑', duration: 5000 });
+        setOtpCode(data.devOtp);
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to send OTP');
     } finally {
@@ -51,9 +60,13 @@ export default function Login() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     if (!otpCode) return toast.error('Please enter the OTP');
+    let identifier = otpIdentifier;
+    if (otpMethod === 'phone') {
+      identifier = '+91' + identifier;
+    }
     setLoading(true);
     try {
-      const u = await loginWithOtp(otpIdentifier, otpCode);
+      const u = await loginWithOtp(identifier, otpCode);
       toast.success('Welcome back!');
       nav(u.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {
@@ -124,10 +137,23 @@ export default function Login() {
                       Phone Number
                     </button>
                   </div>
-                  <input type={otpMethod === 'email' ? 'email' : 'text'} required value={otpIdentifier}
-                         onChange={e=>setOtpIdentifier(e.target.value)}
-                         placeholder={otpMethod === 'email' ? 'email@example.com' : 'e.g. +1234567890'}
-                         className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-neon/50 text-white"/>
+                  {otpMethod === 'email' ? (
+                    <input type="email" required value={otpIdentifier}
+                           onChange={e=>setOtpIdentifier(e.target.value)}
+                           placeholder="email@example.com"
+                           className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-neon/50 text-white"/>
+                  ) : (
+                    <div className="flex bg-white/5 border border-white/10 rounded-lg overflow-hidden focus-within:border-neon/50 transition-all">
+                      <span className="px-3 py-2 text-slate-400 border-r border-white/10 bg-white/5 text-sm select-none font-medium flex items-center">+91</span>
+                      <input type="tel" required value={otpIdentifier}
+                             onChange={e => {
+                               const raw = e.target.value.replace(/\D/g, '').slice(0, 10);
+                               setOtpIdentifier(raw);
+                             }}
+                             placeholder="10-digit Indian number"
+                             className="w-full px-3 py-2 bg-transparent focus:outline-none text-white text-sm font-medium"/>
+                    </div>
+                  )}
                   <button disabled={loading} className="btn btn-primary w-full mt-2">{loading?'Sending OTP...':'Send OTP'}</button>
                 </form>
               ) : (

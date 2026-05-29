@@ -60,21 +60,21 @@ const testBikes = [
   { brand: "TVS", model: "iQube ST", path: "tvs-bikes/iqube" },
 
   // Yamaha
-  { brand: "Yamaha", model: "YZF R15 V4", path: "yamaha-bikes/yzf-r15" },
+  { brand: "Yamaha", model: "YZF R15 V4", path: "yamaha-bikes/r15" },
   { brand: "Yamaha", model: "FZ-Fi Version 3.0", path: "yamaha-bikes/fz" },
-  { brand: "Yamaha", model: "FZS-Fi Version 3.0", path: "yamaha-bikes/fzs" },
-  { brand: "Yamaha", model: "FZS-Fi Version 4.0 DLX", path: "yamaha-bikes/fzs-fi-gp-edition" },
+  { brand: "Yamaha", model: "FZS-Fi Version 3.0", path: "yamaha-bikes/fzs-fi" },
+  { brand: "Yamaha", model: "FZS-Fi Version 4.0 DLX", path: "yamaha-bikes/fzs-fi" },
   { brand: "Yamaha", model: "FZ-X", path: "yamaha-bikes/fz-x" },
   { brand: "Yamaha", model: "FZ Rave", path: "yamaha-bikes/fz" },
-  { brand: "Yamaha", model: "FZ-S Fi Hybrid", path: "yamaha-bikes/fzs" },
+  { brand: "Yamaha", model: "FZ-S Fi Hybrid", path: "yamaha-bikes/fzs-fi" },
   { brand: "Yamaha", model: "FZ-X Hybrid", path: "yamaha-bikes/fz-x" },
-  { brand: "Yamaha", model: "MT-15 Version 2.0", path: "yamaha-bikes/mt15" },
-  { brand: "Yamaha", model: "YZF-R15S V3", path: "yamaha-bikes/yzf-r15s" },
-  { brand: "Yamaha", model: "YZF-R15 V4", path: "yamaha-bikes/yzf-r15" },
-  { brand: "Yamaha", model: "YZF-R15M", path: "yamaha-bikes/yzf-r15m" },
+  { brand: "Yamaha", model: "MT-15 Version 2.0", path: "yamaha-bikes/mt-15" },
+  { brand: "Yamaha", model: "YZF-R15S V3", path: "yamaha-bikes/r15s" },
+  { brand: "Yamaha", model: "YZF-R15 V4", path: "yamaha-bikes/r15" },
+  { brand: "Yamaha", model: "YZF-R15M", path: "yamaha-bikes/r15" },
   { brand: "Yamaha", model: "XSR 155", path: "yamaha-bikes/xsr-155" },
   { brand: "Yamaha", model: "MT-03", path: "yamaha-bikes/mt-03" },
-  { brand: "Yamaha", model: "YZF-R3", path: "yamaha-bikes/yzfr3" },
+  { brand: "Yamaha", model: "YZF-R3", path: "yamaha-bikes/r3" },
   { brand: "Yamaha", model: "Fascino 125 Fi Hybrid", path: "yamaha-bikes/fascino-125" },
   { brand: "Yamaha", model: "New Fascino 125 Fi", path: "yamaha-bikes/fascino-125" },
   { brand: "Yamaha", model: "RayZR 125 Fi Hybrid", path: "yamaha-bikes/ray-zr-125" },
@@ -85,10 +85,10 @@ const testBikes = [
   { brand: "KTM", model: "Duke 390", path: "ktm-bikes/390-duke" },
 
   // Bajaj
-  { brand: "Bajaj", model: "Pulsar NS200", path: "bajaj-bikes/pulsar-ns200" },
+  { brand: "Bajaj", model: "Pulsar NS200", path: "bajaj-bikes/pulsar-ns" },
 
   // Ola
-  { brand: "Ola", model: "S1 Pro", path: "ola-electric-bikes/s1-pro" }
+  { brand: "Ola", model: "S1 Pro", path: "ola-bikes/s1-pro" }
 ];
 
 function fetchHtml(url) {

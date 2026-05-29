@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import api from '../api/client';
 import { X } from 'lucide-react';
+import { useCompare } from '../context/CompareContext.jsx';
 
 export default function Compare() {
   const [all, setAll] = useState([]);
-  const [selected, setSelected] = useState([]);
+  const { selectedBikes, toggleCompare, removeCompare } = useCompare();
   const [data, setData] = useState([]);
 
   useEffect(() => { api.get('/bikes').then(r => setAll(r.data)); }, []);
 
-  const add = (id) => { if (selected.length<4 && !selected.includes(id)) setSelected([...selected,id]); };
-  const remove = (id) => setSelected(selected.filter(x => x!==id));
+  const add = (id) => { if (!selectedBikes.includes(id)) toggleCompare(id); };
+  const remove = (id) => removeCompare(id);
 
   useEffect(() => {
-    if (!selected.length) return setData([]);
-    api.post('/bikes/compare', { ids: selected }).then(r => setData(r.data));
-  }, [selected]);
+    if (!selectedBikes.length) return setData([]);
+    api.post('/bikes/compare', { ids: selectedBikes }).then(r => setData(r.data));
+  }, [selectedBikes]);
 
   const rows = [
     ['Brand','brand'],['Model','model'],['Price','price'],['Mileage','mileage'],

@@ -1,22 +1,19 @@
 const https = require('https');
 
-const url = "https://imgd.aeplcdn.com/664x374/n/cw/ec/159751/hunter-350-right-side-view.jpeg";
-
-function checkWithReferer(referer) {
+function checkUrl(url) {
   return new Promise((resolve) => {
-    const headers = referer ? { 'Referer': referer } : {};
-    https.request(url, { method: 'HEAD', headers }, (res) => {
-      resolve({ referer, status: res.statusCode });
+    https.request(url, { method: 'GET', headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+      resolve({ url, status: res.statusCode, headers: res.headers });
     }).on('error', (err) => {
-      resolve({ referer, error: err.message });
+      resolve({ url, error: err.message });
     }).end();
   });
 }
 
 async function run() {
-  console.log(await checkWithReferer(null));
-  console.log(await checkWithReferer("http://localhost:5173/"));
-  console.log(await checkWithReferer("https://www.bikewale.com/"));
+  console.log(await checkUrl("https://www.bikewale.com/royalenfield-bikes/flying-flea-c6/"));
+  console.log(await checkUrl("https://www.bikewale.com/royalenfield-bikes/flying-flea/"));
+  console.log(await checkUrl("https://www.bikewale.com/royalenfield-bikes/flyingflea-c6/"));
 }
 
 run();

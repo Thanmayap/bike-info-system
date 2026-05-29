@@ -12,9 +12,13 @@ export default function ForgotPassword() {
     if (!data.identifier) return toast.error('Please enter your email or phone number');
     setLoading(true);
     try { 
-      await api.post('/auth/forgot-password', { identifier: data.identifier }); 
+      const { data: resData } = await api.post('/auth/forgot-password', { identifier: data.identifier }); 
       toast.success('OTP sent successfully!'); 
       setStep(2); 
+      if (resData.devOtp) {
+        toast(`[DEV MODE] Auto-filled OTP: ${resData.devOtp}`, { icon: '🔑', duration: 5000 });
+        setData(prev => ({ ...prev, otp: resData.devOtp }));
+      }
     } catch (e) { 
       toast.error(e.response?.data?.message || 'Failed to send OTP'); 
     } finally {

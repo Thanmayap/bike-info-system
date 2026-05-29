@@ -1,5 +1,18 @@
 const pool = require('../config/db');
 
+exports.recent = async (req, res, next) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT r.*, u.name AS user_name, u.avatar AS user_avatar, b.brand AS bike_brand, b.model AS bike_model, b.image AS bike_image 
+       FROM bike_reviews r
+       JOIN users u ON u.id=r.user_id
+       JOIN bikes b ON b.id=r.bike_id
+       ORDER BY r.created_at DESC LIMIT 6`
+    );
+    res.json(rows);
+  } catch (e) { next(e); }
+};
+
 exports.list = async (req, res, next) => {
   try {
     const [rows] = await pool.query(
@@ -18,3 +31,4 @@ exports.create = async (req, res, next) => {
     res.json({ ok: true });
   } catch (e) { next(e); }
 };
+

@@ -68,3 +68,12 @@ exports.dashboardStats = async (req, res, next) => {
     res.json({ saved: w.c, compared: c.c, recent: r.c });
   } catch (e) { next(e); }
 };
+
+exports.uploadAvatar = async (req, res, next) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+    const avatarUrl = `/uploads/${req.file.filename}`;
+    await pool.query('UPDATE users SET avatar = ? WHERE id = ?', [avatarUrl, req.user.id]);
+    res.json({ ok: true, avatar: avatarUrl });
+  } catch (e) { next(e); }
+};

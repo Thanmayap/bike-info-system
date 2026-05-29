@@ -304,9 +304,9 @@ async function initDb() {
         // 312cc Track/Sports
         ["TVS", "Apache RR 310", 1, 250000, 33.0, 312.2, "33.2 bhp @ 9500 rpm", "28.5 Nm", 165, 13.0, "6-Speed", "LED DRL,Dual-channel ABS,Full-Faired Body,Aero Design", "Full-faired supersport bike.", "https://www.tvsmotor.com/tvs-apache/images/tvs-apache-rr-310-right-side-view.png", 1],
         // Legacy Sports (Discontinued)
-        ["TVS", "Suzuki Shogun", 1, 45000, 50.0, 125.0, "10.5 bhp @ 8000 rpm", "10.0 Nm", 118, 10.5, "4-Speed", "Disc Brake", "Legacy street bike (Discontinued).", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", 0],
-        ["TVS", "Suzuki Samurai", 3, 42000, 55.0, 100.0, "7.5 bhp @ 7500 rpm", "7.5 Nm", 105, 10.0, "4-Speed", "Drum Brake", "Legacy commuter (Discontinued).", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", 0],
-        ["TVS", "Suzuki Fiero", 1, 50000, 45.0, 150.0, "14.0 bhp @ 8500 rpm", "12.5 Nm", 132, 12.0, "5-Speed", "Disc Brake", "Legacy sports bike (Discontinued).", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", 0],
+        ["Suzuki", "Shogun", 1, 45000, 50.0, 125.0, "10.5 bhp @ 8000 rpm", "10.0 Nm", 118, 10.5, "4-Speed", "Disc Brake", "Legacy street bike (Discontinued).", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", 0],
+        ["Suzuki", "Samurai", 3, 42000, 55.0, 100.0, "7.5 bhp @ 7500 rpm", "7.5 Nm", 105, 10.0, "4-Speed", "Drum Brake", "Legacy commuter (Discontinued).", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", 0],
+        ["Suzuki", "Fiero", 1, 50000, 45.0, 150.0, "14.0 bhp @ 8500 rpm", "12.5 Nm", 132, 12.0, "5-Speed", "Disc Brake", "Legacy sports bike (Discontinued).", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", 0],
         // Moped
         ["TVS", "XL 100 Comfort", 3, 40000, 70.0, 99.7, "5.5 bhp @ 6000 rpm", "6.5 Nm", 75, 5.0, "4-Speed", "Heavy Duty Chassis,Kick Start", "Heavy duty utility moped.", "https://www.tvsmotor.com/tvs-xl/images/tvs-xl100-right-side-view.png", 1],
         ["TVS", "XL 100 Heavy Duty", 3, 42000, 70.0, 99.7, "5.5 bhp @ 6000 rpm", "6.5 Nm", 80, 5.5, "4-Speed", "Heavy Duty Chassis,Reinforced Frame", "Extra heavy duty moped.", "https://www.tvsmotor.com/tvs-xl/images/tvs-xl100-heavy-duty-right-side-view.png", 1],

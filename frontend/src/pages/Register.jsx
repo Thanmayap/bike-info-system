@@ -41,22 +41,34 @@ export default function Register() {
   };
 
   const sendOtpRequest = async (field) => {
-    const val = form[field];
+    let val = form[field];
     if (!val) return toast.error(`Please enter your ${field}`);
     if (field === 'email' && !val.includes('@')) return toast.error('Please enter a valid email');
+    if (field === 'phone') {
+      if (val.length !== 10) return toast.error('Please enter a valid 10-digit Indian phone number');
+      val = '+91' + val;
+    }
 
     if (field === 'email') setEmailLoading(true);
     else setPhoneLoading(true);
 
     try {
-      await api.post('/auth/send-otp', { identifier: val, purpose: 'register' });
+      const { data } = await api.post('/auth/send-otp', { identifier: val, purpose: 'register' });
       toast.success(`OTP sent to your ${field}!`);
       if (field === 'email') {
         setEmailOtpSent(true);
         startEmailTimer();
+        if (data.devOtp) {
+          toast(`[DEV MODE] Auto-filled OTP: ${data.devOtp}`, { icon: '🔑', duration: 5000 });
+          setEmailOtp(data.devOtp);
+        }
       } else {
         setPhoneOtpSent(true);
         startPhoneTimer();
+        if (data.devOtp) {
+          toast(`[DEV MODE] Auto-filled OTP: ${data.devOtp}`, { icon: '🔑', duration: 5000 });
+          setPhoneOtp(data.devOtp);
+        }
       }
     } catch (err) {
       toast.error(err.response?.data?.message || `Failed to send OTP to ${field}`);
@@ -77,6 +89,7 @@ export default function Register() {
     try {
       await register({
         ...form,
+        phone: form.phone ? '+91' + form.phone : undefined,
         emailOtp,
         phoneOtp: form.phone ? phoneOtp : undefined
       });
@@ -134,10 +147,17 @@ export default function Register() {
           <div className="space-y-1">
             <label className="text-xs text-slate-400 font-medium">Phone Number (Optional)</label>
             <div className="flex gap-2">
-              <input type="text" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})}
-                     placeholder="e.g. +1234567890" disabled={phoneOtpSent}
-                     className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-neon/50 text-white disabled:opacity-60"/>
-              {form.phone && (
+              <div className="flex bg-white/5 border border-white/10 rounded-lg overflow-hidden flex-1 focus-within:border-neon/50 transition-all">
+                <span className="px-3 py-2 text-slate-400 border-r border-white/10 bg-white/5 text-sm select-none font-medium flex items-center">+91</span>
+                <input type="tel" value={form.phone} 
+                       onChange={e => {
+                         const raw = e.target.value.replace(/\D/g, '').slice(0, 10);
+                         setForm({ ...form, phone: raw });
+                       }}
+                       placeholder="10-digit Indian number" disabled={phoneOtpSent}
+                       className="w-full px-3 py-2 bg-transparent focus:outline-none text-white disabled:opacity-60 text-sm font-medium"/>
+              </div>
+              {form.phone && form.phone.length === 10 && (
                 <button type="button" disabled={phoneLoading || phoneTimer > 0}
                         onClick={() => sendOtpRequest('phone')}
                         className="px-3 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-50 text-xs font-semibold rounded-lg border border-white/10 text-white transition-all whitespace-nowrap">
@@ -164,8 +184,8 @@ export default function Register() {
                    placeholder="Create password" className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-neon/50 text-white"/>
           </div>
 
-          <button disabled={loading} className="btn btn-primary w-full mt-2">
-            {loading ? 'Creating Account...' : 'Sign up'}
+          <button disabled={loading || (form.phone && form.phone.length > 0 && (!phoneOtpSent || !phoneOtp))} className="btn btn-primary w-full mt-2 disabled:opacity-50 disabled:cursor-not-allowed">
+            {loading ? 'Creating Account...' : (form.phone && form.phone.length > 0 && !phoneOtpSent) ? 'Click "Send OTP" for Phone to continue' : 'Sign up'}
           </button>
         </div>
 

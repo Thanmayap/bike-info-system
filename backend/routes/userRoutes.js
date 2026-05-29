@@ -8,4 +8,6 @@ r.post('/wishlist/:id', (req, res, next) => require('../controllers/userControll
 r.get('/recent', (req, res, next) => require('../controllers/userController').recent(req, res, next));
 r.post('/recent/:id', (req, res, next) => require('../controllers/userController').trackRecent(req, res, next));
 r.get('/stats', (req, res, next) => require('../controllers/userController').dashboardStats(req, res, next));
+const upload = require('../middleware/upload');
+r.post('/upload-avatar', upload.single('avatar'), (req, res, next) => require('../controllers/userController').uploadAvatar(req, res, next));
 module.exports = r;

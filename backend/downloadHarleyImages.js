@@ -4,12 +4,12 @@ const https = require('https');
 const db = require('./config/db');
 
 const imagesToDownload = [
-  { model: 'X440', url: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/151323/x440-right-side-view.jpeg' },
-  { model: 'Fat Boy 114', url: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/150035/fat-boy-right-side-view.jpeg' },
-  { model: 'Iron 883', url: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/48209/harley-davidson-iron-883-right-side-view-4.jpeg' },
-  { model: 'Street 750', url: 'https://imgd.aeplcdn.com/664x374/bw/ec/32187/harley-davidson-street-750-right-side-view-5.jpeg' },
-  { model: 'Pan America 1250', url: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/95837/pan-america-1250-right-side-view-13.jpeg' },
-  { model: 'Sportster S', url: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/101287/sportster-s-right-side-view-2.jpeg' }
+  { model: 'X440', url: 'https://images.unsplash.com/photo-1558981420-c532902e58b4?w=800&q=80' },
+  { model: 'Fat Boy 114', url: 'https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=800&q=80' },
+  { model: 'Iron 883', url: 'https://images.unsplash.com/photo-1558980394-0a06c4631733?w=800&q=80' },
+  { model: 'Street 750', url: 'https://images.unsplash.com/photo-1558981359-219d6364c9c8?w=800&q=80' },
+  { model: 'Pan America 1250', url: 'https://images.unsplash.com/photo-1558981408-db0ecd8a1ee4?w=800&q=80' },
+  { model: 'Sportster S', url: 'https://images.unsplash.com/photo-1558980663-3685c656d315?w=800&q=80' }
 ];
 
 async function downloadImage(url, filename) {

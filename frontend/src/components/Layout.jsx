@@ -10,6 +10,11 @@ export default function Layout() {
   const hideChrome = ['/login','/register','/forgot-password'].includes(pathname);
   return (
     <div className="min-h-screen flex flex-col">
+      <div className="bg-neon text-black text-xs font-bold py-1.5 w-full overflow-hidden flex items-center justify-center tracking-widest uppercase relative z-50 shadow-md">
+        <marquee scrollamount="6">
+          🚀 THE BIGGEST BIKE SALE IS LIVE! GET UPTO 20% OFF ON RIDING GEAR & ACCESSORIES! 🔥 DON'T MISS OUT ON OUR EXCLUSIVE WEEKEND OFFERS! 🚀
+        </marquee>
+      </div>
       {!hideChrome && <Navbar />}
       <main className="flex-1 relative">
         <Outlet />

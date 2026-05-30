@@ -10,7 +10,7 @@ import LocationModal from './LocationModal.jsx';
 export default function Navbar() {
   const { user, logout } = useAuth();
   const { theme, toggle } = useTheme();
-  const { lang, toggleLanguage, t } = useLanguage();
+  const { lang, changeLanguage, t } = useLanguage();
   const { activeCity } = useLocation();
   const nav = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -67,15 +67,22 @@ export default function Navbar() {
             <span className="font-semibold text-slate-200 truncate">{activeCity}</span>
           </button>
 
-          {/* Language selector toggle - hidden on extra small screens */}
-          <button
-            onClick={toggleLanguage}
-            className="btn btn-ghost text-xs hidden sm:flex items-center gap-1.5 px-3 py-1.5 border border-white/5 hover:border-white/10 rounded-lg cursor-pointer shrink-0"
-            title="Toggle Language / भाषा बदलें"
-          >
+          {/* Language selector dropdown - hidden on extra small screens */}
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 border border-white/5 hover:border-white/10 rounded-lg cursor-pointer shrink-0 bg-transparent">
             <Globe size={14} className="text-neon" />
-            <span className="font-bold uppercase tracking-wider text-slate-200">{lang === 'en' ? 'HI' : 'EN'}</span>
-          </button>
+            <select
+              value={lang}
+              onChange={(e) => changeLanguage(e.target.value)}
+              className="bg-transparent text-slate-200 font-bold uppercase tracking-wider text-xs outline-none cursor-pointer appearance-none"
+              title="Select Language / भाषा चुनें"
+            >
+              <option value="en" className="text-black">EN</option>
+              <option value="hi" className="text-black">HI</option>
+              <option value="kn" className="text-black">KN</option>
+              <option value="te" className="text-black">TE</option>
+              <option value="ta" className="text-black">TA</option>
+            </select>
+          </div>
 
           <button onClick={toggle} className="btn btn-ghost p-1.5 sm:p-2 text-slate-300 hover:text-white shrink-0" aria-label="Toggle theme">
             {theme==='dark'?<Sun size={14} className="sm:w-4 sm:h-4"/>:<Moon size={14} className="sm:w-4 sm:h-4"/>}

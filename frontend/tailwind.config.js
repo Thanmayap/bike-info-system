@@ -5,15 +5,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        neon: { DEFAULT: '#00f0a8', glow: '#22ffd1' },
-        ink:  { 900: '#0a0d12', 800: '#10151c', 700: '#171d27' },
+        neon: { DEFAULT: '#00E5FF', glow: '#66FFFF' },
+        ink:  { 900: '#030712', 800: '#111827', 700: '#1F2937' },
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'system-ui'],
         body: ['Inter', 'system-ui'],
       },
       boxShadow: {
-        glow: '0 0 30px rgba(0,240,168,0.35)',
+        glow: '0 0 30px rgba(0,229,255,0.4)',
       },
     },
   },

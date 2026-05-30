@@ -81,16 +81,16 @@ export default function SimilarBrands() {
   const visibleBrands = showAll ? BRANDS_DATA : BRANDS_DATA.slice(0, 10);
 
   return (
-    <section className="bg-[#111] rounded-2xl p-6 mt-10">
+    <section className="glass p-6 mt-10">
       <h2 className="text-white text-xl font-bold mb-6">Popular Brands</h2>
 
-      <div className="border border-[#2a2a2a] rounded-xl overflow-hidden bg-[#161616]">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 border-b border-[#2a2a2a]">
+      <div className="border border-white/10 rounded-xl overflow-hidden bg-white/5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 border-b border-white/10">
           {visibleBrands.map((brand, i) => (
             <Link
               key={brand.name}
               to={`/search?q=${encodeURIComponent(brand.name)}`}
-              className="group border-r border-b border-[#2a2a2a] last:border-r-0 lg:nth-child(5n):border-r-0 p-6 flex flex-col items-center justify-center hover:bg-[#1f1f1f] transition-colors duration-200"
+              className="group border-r border-b border-white/10 last:border-r-0 lg:nth-child(5n):border-r-0 p-6 flex flex-col items-center justify-center hover:bg-white/5 transition-colors duration-200"
               style={{ textDecoration: 'none', borderBottom: (i >= visibleBrands.length - (visibleBrands.length % 5 || 5)) ? 'none' : '' }}
             >
               <motion.div
@@ -123,8 +123,8 @@ export default function SimilarBrands() {
         </div>
         
         {/* View More Brands Button inside the frame matching the user screenshot */}
-        <div className="flex items-center justify-center p-4 hover:bg-[#1f1f1f] transition-colors cursor-pointer" onClick={() => setShowAll(!showAll)}>
-          <span className="text-[#3b82f6] font-medium text-[15px] hover:underline">
+        <div className="flex items-center justify-center p-4 hover:bg-white/5 transition-colors cursor-pointer border-t border-white/5" onClick={() => setShowAll(!showAll)}>
+          <span className="text-neon font-medium text-[15px] hover:underline">
             {showAll ? 'View Less Brands' : 'View More Brands'}
           </span>
         </div>

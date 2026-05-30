@@ -42,11 +42,16 @@ export default function Compare() {
               <tr>
                 <th className="text-left p-4">Spec</th>
                 {data.map(b => (
-                  <th key={b.id} className="p-4 text-left">
-                    <div className="flex items-center justify-between gap-2">
-                      <span>{b.brand} {b.model}</span>
-                      <button onClick={()=>remove(b.id)}><X size={14} className="text-slate-400 hover:text-white"/></button>
+                  <th key={b.id} className="p-4 text-left align-top min-w-[200px]">
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <span className="font-bold text-lg">{b.brand} {b.model}</span>
+                      <button onClick={()=>remove(b.id)} className="p-1 hover:bg-white/10 rounded"><X size={16} className="text-slate-400 hover:text-white"/></button>
                     </div>
+                    {b.image ? (
+                      <img src={b.image} alt={b.model} className="w-full h-32 object-contain mix-blend-screen bg-black/20 rounded-lg p-2" />
+                    ) : (
+                      <div className="w-full h-32 flex items-center justify-center bg-white/5 rounded-lg text-slate-500">No Image</div>
+                    )}
                   </th>
                 ))}
               </tr>

@@ -73,14 +73,14 @@ export default function Navbar() {
             <select
               value={lang}
               onChange={(e) => changeLanguage(e.target.value)}
-              className="bg-transparent text-slate-200 font-bold uppercase tracking-wider text-xs outline-none cursor-pointer appearance-none"
+              className="bg-transparent text-slate-200 font-bold tracking-wider text-xs outline-none cursor-pointer appearance-none"
               title="Select Language / भाषा चुनें"
             >
-              <option value="en" className="text-black">EN</option>
-              <option value="hi" className="text-black">HI</option>
-              <option value="kn" className="text-black">KN</option>
-              <option value="te" className="text-black">TE</option>
-              <option value="ta" className="text-black">TA</option>
+              <option value="en" className="text-black">English</option>
+              <option value="hi" className="text-black">Hindi</option>
+              <option value="kn" className="text-black">Kannada</option>
+              <option value="te" className="text-black">Telugu</option>
+              <option value="ta" className="text-black">Tamil</option>
             </select>
           </div>
 

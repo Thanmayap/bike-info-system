@@ -224,7 +224,7 @@ export default function Home() {
               {recentReviews.slice(0, 3).map(rev => {
                 const bikeImg = rev.bike_image?.startsWith('http')
                   ? rev.bike_image
-                  : `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'}${rev.bike_image}`;
+                  : `${import.meta.env.VITE_API_URL?.replace('/api', '') || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' ? `${window.location.origin}/_/backend` : 'http://localhost:5000')}${rev.bike_image}`;
                   
                 return (
                   <motion.div 

@@ -285,7 +285,7 @@ export default function Showroom360({ bike, selectedColor }) {
 
   const bikeImg = bike.image.startsWith('http') 
     ? bike.image.replace(/&amp;/g, '&')
-    : `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'}${bike.image}`;
+    : `${import.meta.env.VITE_API_URL?.replace('/api', '') || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' ? `${window.location.origin}/_/backend` : 'http://localhost:5000')}${bike.image}`;
 
   return (
     <div className="flex flex-col h-full bg-ink-950/40 relative overflow-hidden" ref={containerRef}>

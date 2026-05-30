@@ -83,7 +83,8 @@ export default function BikeDetails() {
   const getImageSrc = (image) => {
     if (!image) return null;
     if (image.startsWith('http://') || image.startsWith('https://')) return image;
-    return `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'}${image}`;
+    const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' ? `${window.location.origin}/_/backend` : 'http://localhost:5000');
+    return `${baseUrl}${image}`;
   };
   const img = getImageSrc(bike.image);
 
